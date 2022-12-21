@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 import { useCart } from "../../hooks/useCart";
 import { api } from "../../services/api";
+import { formatPrice } from "../../util/format";
 
 import { ProductList } from "./styles";
 
@@ -32,8 +33,17 @@ const Home = (): JSX.Element => {
   }, {} as CartItemsAmount);
 
   useEffect(() => {
-    function loadProducts() {
-      api.get("/products").then((response) => setProducts(response.data));
+    async function loadProducts() {
+      const rawProducts = await api
+        .get("/products")
+        .then((response) => response.data);
+
+      const formattedProducts = rawProducts.map((product: Product) => ({
+        ...product,
+        price: formatPrice(product.price),
+      }));
+
+      return setProducts(formattedProducts);
     }
 
     loadProducts();

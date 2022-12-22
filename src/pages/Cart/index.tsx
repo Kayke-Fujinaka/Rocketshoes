@@ -3,18 +3,14 @@ import {
   MdDelete,
   MdRemoveCircleOutline,
 } from "react-icons/md";
+import { ChangeTypeOfKeys } from "../../helpers/changeTypeOfKey";
 import { useCart } from "../../hooks/useCart";
+import { Product as ProductRaw } from "../../interfaces";
 import { formatPrice } from "../../util/format";
 
 import { Container, ProductTable, Total } from "./styles";
 
-interface Product {
-  id: number;
-  title: string;
-  price: string;
-  image: string;
-  amount: number;
-}
+type Product = ChangeTypeOfKeys<ProductRaw, "price", string>;
 
 const Cart = (): JSX.Element => {
   const { cart, updateProductAmount, removeProduct } = useCart();

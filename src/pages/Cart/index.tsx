@@ -40,9 +40,7 @@ const Cart = (): JSX.Element => {
   const handleProductDecrement = (product: Product) =>
     updateProductAmount({ productId: product.id, amount: product.amount-- });
 
-  function handleRemoveProduct(productId: number) {
-    removeProduct(productId);
-  }
+  const handleRemoveProduct = (productId: number) => removeProduct(productId);
 
   return (
     <Container>

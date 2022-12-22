@@ -19,7 +19,7 @@ interface Product {
 }
 
 const Cart = (): JSX.Element => {
-  const { cart } = useCart();
+  const { cart, updateProductAmount, removeProduct } = useCart();
 
   const cartFormatted = cart.map((product) => ({
     ...product,
@@ -35,15 +35,15 @@ const Cart = (): JSX.Element => {
   );
 
   function handleProductIncrement(product: Product) {
-    // TODO
+    // updateProductAmount();
   }
 
   function handleProductDecrement(product: Product) {
-    // TODO
+    // updateProductAmount();
   }
 
   function handleRemoveProduct(productId: number) {
-    // TODO
+    removeProduct(productId);
   }
 
   return (
@@ -59,15 +59,15 @@ const Cart = (): JSX.Element => {
           </tr>
         </thead>
         <tbody>
-          {cartFormatted.map((item) => {
+          {cartFormatted.map((product) => {
             return (
-              <tr data-testid="product">
+              <tr data-testid="product" key={product.id}>
                 <td>
-                  <img src={item.image} alt={item.title} />
+                  <img src={product.image} alt={product.title} />
                 </td>
                 <td>
-                  <strong>{item.title}</strong>
-                  <span>{item.price}</span>
+                  <strong>{product.title}</strong>
+                  <span>{product.price}</span>
                 </td>
                 <td>
                   <div>
@@ -95,13 +95,13 @@ const Cart = (): JSX.Element => {
                   </div>
                 </td>
                 <td>
-                  <strong>{item.priceTotalByAmount}</strong>
+                  <strong>{product.priceTotalByAmount}</strong>
                 </td>
                 <td>
                   <button
                     type="button"
                     data-testid="remove-product"
-                    // onClick={() => handleRemoveProduct(product.id)}
+                    onClick={() => handleRemoveProduct(product.id)}
                   >
                     <MdDelete size={20} />
                   </button>
